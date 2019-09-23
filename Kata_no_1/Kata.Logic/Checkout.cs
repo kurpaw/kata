@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kata.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,17 +7,28 @@ namespace Kata.Logic
 {
     public class Checkout
     {
-        public List<string> Items { get; private set; }
+        private IItemsRepository _itemsRepository;
+
+        public List<IItem> Items { get; private set; }
 
         public Checkout()
         {
-            Items = new List<string>();
+            Items = new List<IItem>();
         }
 
+        public Checkout(IItemsRepository itemsRepository)
+        {
+            Items = new List<IItem>();
+            _itemsRepository = itemsRepository;
+        }
 
         public void Scan(string sku)
         {
-            Items.Add(sku);
+            var item = _itemsRepository.GetProductBySku(sku);
+            if (item != null)
+            {
+                Items.Add(item);
+            }
         }
     }
 }

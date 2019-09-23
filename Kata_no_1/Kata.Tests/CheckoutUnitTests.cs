@@ -11,7 +11,7 @@ namespace Kata.Tests
         [Fact]
         public void Scan_OneProduct_True()
         {
-            Checkout checkout = new Checkout();
+            Checkout checkout = new Checkout(new TestItemsRepository());
 
             checkout.Scan("A99");
 
@@ -21,7 +21,7 @@ namespace Kata.Tests
         [Fact]
         public void Scan_TwoProducts_True()
         {
-            Checkout checkout = new Checkout();
+            Checkout checkout = new Checkout(new TestItemsRepository());
 
             checkout.Scan("A99");
             checkout.Scan("B15");
