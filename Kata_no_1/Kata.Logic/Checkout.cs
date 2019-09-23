@@ -10,6 +10,8 @@ namespace Kata.Logic
     {
         private IItemsRepository _itemsRepository;
 
+        private ISpecialOffersRepository _specialOffersRepository;
+
         public List<IItem> Items { get; private set; }
 
         public Checkout()
@@ -21,6 +23,13 @@ namespace Kata.Logic
         {
             Items = new List<IItem>();
             _itemsRepository = itemsRepository;
+        }
+
+        public Checkout(IItemsRepository itemsRepository, ISpecialOffersRepository specialOffersRepository)
+        {
+            Items = new List<IItem>();
+            _itemsRepository = itemsRepository;
+            _specialOffersRepository = specialOffersRepository;
         }
 
         public void Scan(string sku)
@@ -54,8 +63,15 @@ namespace Kata.Logic
             decimal total = 0m;
             foreach (var line in groupedItems)
             {
-                
-                total += line.Count * _itemsRepository.GetProductBySku(line.Sku).UnitPrice;
+                var specialOffer = _specialOffersRepository?.GetSpecialOfferBySku(line.Sku);
+                if (specialOffer != null)
+                {
+                    total += line.Count / specialOffer.Quantity * specialOffer.OfferPrice + line.Count % specialOffer.Quantity * _itemsRepository.GetProductBySku(line.Sku).UnitPrice;
+                }
+                else
+                {
+                    total += line.Count * _itemsRepository.GetProductBySku(line.Sku).UnitPrice;
+                }
             }
             return total;
         }
