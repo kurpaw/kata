@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kata.Logic;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
