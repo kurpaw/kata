@@ -52,5 +52,18 @@ namespace Kata.Tests
 
             Assert.Throws<ArgumentException>(() => checkout.Scan(" "));
         }
+
+        [Fact]
+        public void Total_1Pound90Pence_True()
+        {
+            Checkout checkout = new Checkout(new TestItemsRepository(), new TestSpecialOffersRepository());
+
+            checkout.Scan("A99");
+            checkout.Scan("B15");
+            checkout.Scan("C40");
+            checkout.Scan("A99");
+
+            Assert.True(checkout.Total() == 1.90m);
+        }
     }
 }
