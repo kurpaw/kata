@@ -36,5 +36,21 @@ namespace Kata.Tests
 
             Assert.Throws<Exception>(() => checkout.Scan("AAA"));
         }
+
+        [Fact]
+        public void Scan_EmptyStringAsArgument_ThrowsArgumentException()
+        {
+            Checkout checkout = new Checkout(new TestItemsRepository());
+
+            Assert.Throws<ArgumentException>(() => checkout.Scan(""));
+        }
+
+        [Fact]
+        public void Scan_WhiteSpaceAsArgument_ThrowsArgumentException()
+        {
+            Checkout checkout = new Checkout(new TestItemsRepository());
+
+            Assert.Throws<ArgumentException>(() => checkout.Scan(" "));
+        }
     }
 }
