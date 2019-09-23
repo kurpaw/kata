@@ -24,6 +24,11 @@ namespace Kata.Logic
 
         public void Scan(string sku)
         {
+            if (string.IsNullOrWhiteSpace(sku))
+            {
+                throw new ArgumentException("Invalid sku");
+            }
+
             var item = _itemsRepository.GetProductBySku(sku);
             if (item != null)
             {
