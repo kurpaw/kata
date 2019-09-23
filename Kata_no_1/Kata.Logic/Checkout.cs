@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Kata.Logic
 {
@@ -38,6 +39,25 @@ namespace Kata.Logic
             {
                 throw new Exception("Product not found");
             }
+        }
+
+        public decimal Total()
+        {
+            var groupedItems = Items
+                .GroupBy(i => i.Sku)
+                .Select(g => new
+                {
+                    Sku = g.Key,
+                    Count = g.Count()
+                });
+
+            decimal total = 0m;
+            foreach (var line in groupedItems)
+            {
+                
+                total += line.Count * _itemsRepository.GetProductBySku(line.Sku).UnitPrice;
+            }
+            return total;
         }
     }
 }

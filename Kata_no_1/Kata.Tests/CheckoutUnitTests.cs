@@ -56,7 +56,7 @@ namespace Kata.Tests
         [Fact]
         public void Total_1Pound90Pence_True()
         {
-            Checkout checkout = new Checkout(new TestItemsRepository(), new TestSpecialOffersRepository());
+            Checkout checkout = new Checkout(new TestItemsRepository());
 
             checkout.Scan("A99");
             checkout.Scan("B15");
