@@ -16,7 +16,17 @@ namespace Kata.Tests
             checkout.Scan("A99");
 
             Assert.True(checkout.Items.Count == 1);
+        }
 
+        [Fact]
+        public void Scan_TwoProducts_True()
+        {
+            Checkout checkout = new Checkout();
+
+            checkout.Scan("A99");
+            checkout.Scan("B15");
+
+            Assert.True(checkout.Items.Count == 2);
         }
     }
 }
