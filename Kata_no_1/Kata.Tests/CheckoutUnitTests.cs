@@ -65,5 +65,17 @@ namespace Kata.Tests
 
             Assert.True(checkout.Total() == 1.90m);
         }
+
+        [Fact]
+        public void Total_SpecialOffer_95Pence_True()
+        {
+            Checkout checkout = new Checkout(new TestItemsRepository(), new TestSpecialOffersRepository());
+
+            checkout.Scan("B15");
+            checkout.Scan("A99");
+            checkout.Scan("B15");
+
+            Assert.True(checkout.Total() == 0.95m);
+        }
     }
 }
