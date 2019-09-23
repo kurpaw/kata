@@ -29,6 +29,10 @@ namespace Kata.Logic
             {
                 Items.Add(item);
             }
+            else
+            {
+                throw new Exception("Product not found");
+            }
         }
     }
 }
