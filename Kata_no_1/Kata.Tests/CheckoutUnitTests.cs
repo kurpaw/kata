@@ -28,5 +28,13 @@ namespace Kata.Tests
 
             Assert.True(checkout.Items.Count == 2);
         }
+
+        [Fact]
+        public void Scan_ProductNotFound_ThrowsException()
+        {
+            Checkout checkout = new Checkout(new TestItemsRepository());
+
+            Assert.Throws<Exception>(() => checkout.Scan("AAA"));
+        }
     }
 }
